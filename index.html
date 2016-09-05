@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<!--
+* Author: Samuel Moore
+* Assignment: WI2.0 Mobile  Development,  Digital Skills  Academy
+* Student ID: C08389314
+* Date  : 2015/05/03
+* Ref:  youtube videos I used 
+1. https://www.youtube.com/watch?v=WuiHuZq_cg4&feature=player_embedded 
+2. https://www.youtube.com/watch?v=HKmBt5HDVNI
+sites I used
+1. http://codepen.io/Russbrown/pen/IgBuh
+2. http://www.cssscript.com/a-nice-to-do-list-app-with-angular-js/
+3. http://codingmiles.com/angular-js-create-a-simple-task-list/
+4. http://blog.jaykanakiya.com/angular-js-todo-list-sortable/
+ With regards to local storage I can see that it would be quite useful.  
+ Being able to use the app both online and offline would be great if there was connectivity issues.
+ Most users expect their apps to at least have some functionality regardless of connection status.
+ when you refresh mine the page defaults back to what we had at the beginning and does not keep the todos entered by the user. 
+ Tradititionaly to achieve this you would have to connect to a database (ie make a dependancy in the module) or use cookies (which has several downfalls ie security and size).
+  HTML5 allows for local storage . By making a couple of functions firstly checking whether there is a locally stored version on the users computer and secondly to record the users input and convert the input into key and value pairs. 
+   I would attach the functions to the add and delete buttons so the local storage is refreshed everytime the user changes something on the page. here are some of the resources I looked at while studying local storage in html5.
+http://diveintohtml5.info/storage.html
+http://www.html5rocks.com/en/tutorials/offline/whats-offline/
+http://www.htmlgoodies.com/html5/tutorials/a-peek-into-local-data-storage-in-html-5.html#fbid=7wQ_wPpQM0-
+https://dev.opera.com/articles/web-storage/
+https://www.youtube.com/watch?v=Jc_Yycz7MEc
+
+
+it could be achieved through a jquery function such as something like this :
+$(function(){
+  var edit = document.getElementById('edit');
+  $(edit).blur(function(){
+    localStorage.setItem('todoData', this.innerHTML);
+  });
+  if(localStorage.getItem('todoData')){
+    edit.innerHTML = localStorage.getItem('todoData');
+  }
+});
+-->
+<html data-ng-app="myApp" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Sams to do</title>
+<script src="http://code.angularjs.org/angular-1.0.0rc3.min.js"></script>
+<script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+  <script type="text/javascript" src="js/todo.js"></script>
+  <link rel="stylesheet" href="css/todo.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body data-ng-controller="TodoCtrl">
+  <div class="wrapper">
+<!--updating number of todos-->
+<h2>You have {{getTodos()}} left to do.</h2>
+<!--list of todos-->
+<ul>
+  <li class="list-group-item" data-ng-repeat="todo in todos">
+    <!--up button-->
+<button type="button" class="btn btn-sm" data-ng-click="move($index, 'up')">
+  <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+</button>
+<!--down button-->
+<button type="button" class="btn btn-sm" data-ng-click="move($index, 'down')">
+  <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+</button>
+<!--remove button-->
+<button type="button" class="btn btn-sm" data-ng-click="removeTodo($index)">
+  <span class="glyphicon glyphicon-remove-circle" aria-hidden="true"></span>
+</button>
+<input type= "checkbox" data-ng-model="todo.done">
+<span class="done-{{todo.done}}">{{todo.text}}</span>
+<!--priority-->
+<span class="priority {{todo.priority}}">{{todo.priority}}</span>
+<!--Date-->
+<span class="date {{todo.date}}">{{todo.date}}</span>
+
+
+
+
+</li>
+</ul>
+<!--Add todo form-->
+<form class="list-group-item" >
+<input type="text" id="todoinput" data-ng-model="formTodoText" placeholder="insert todo here" data-ng-model-instant><br><br>
+<!-- Priority Selector -->
+
+  <select data-ng-model="priority">
+          <option value='low'>Low</option>
+          <option value='normal'>Normal</option>
+          <option value='medium'>Medium</option>
+          <option value='high'>High</option>
+      </select>
+      <input type="date" data-ng-model="date" placeholder="Due Date">
+      <br>
+            
+<button type="button" class="btn btn-lg addbutton" data-ng-click="addTodo()">
+  <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add
+</button>
+
+</form>
+ <button class="btn btn-lg cleared" data-ng-click="clearComplete()">Clear completed</button>
+
+</div>
+</body>
+</html>
+
+

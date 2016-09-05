@@ -1,0 +1,57 @@
+.done-true{
+	text-decoration: line-through;
+	color: red;
+}
+
+.todo{
+	border: none;
+}
+.priority {
+  width: 10%;
+  height: 20px;
+  background-color: #fff;
+  border: 1px solid #777;
+  text-align: center;
+  font-size: 14px;
+  font-weight: bold;
+ 
+}
+.priority.low{
+	background-color:#A6BAF1;
+}
+.priority.normal{
+	background-color:#80E866;
+}
+.priority.medium {
+  background-color: #F2CA16;
+}
+.priority.high {
+  background-color: #F03B1F;
+}
+h2{
+  font-size: 3em;
+   background: #1CA89C;
+  padding: 40px;
+  margin: 0;
+  color: #333;
+  text-align: center;
+ }
+ .cleared{
+ 	width: 100%;
+ 	background-color: red;
+ 	margin-top: 20px;
+ }
+ .addbutton{
+ 	width: 100%;
+ 	padding-top: 20px;
+
+ }
+ #todoinput{
+ 	width: 100%;
+ 	padding: 20px;
+
+ }
+ li{
+ 	font-size: 2em;
+ 	background-color: #638ACE;
+ }
